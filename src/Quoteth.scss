@@ -1,0 +1,52 @@
+.Quoteth {
+  max-width: 750px;
+  margin: 0px auto;
+
+  .message {
+    font-family: 'Montserrat', sans-serif;
+    //text-align: center;
+    background: white;
+    border: 1px solid black;
+    padding: 10px;
+  }
+  .message:not(:last-child) {
+    //border-bottom: 1px solid black;
+    margin-bottom: 10px;
+  }
+  .messaage-body {
+    background: white;
+    margin-bottom: 10px;
+  }
+  .possible-signers {
+    background: white;
+    //margin: 10px;
+  }
+  .name {
+    display: inline-block;
+    font-family: 'Roboto', sans-serif;
+    border: 1px solid black;
+    cursor: pointer;
+    //padding-left: 10px;
+    //padding-right: 10px;
+    padding: 5px 10px;
+    background: blue;
+    color:white;
+    
+    &:not(:last-child) {
+      margin-right: 5px;
+    }
+
+    &.correct {
+      background: green;
+    }
+    &.incorrect {
+      background: red;
+    }
+    &.disabled {
+      background: none;
+      border: none;
+      cursor: default;
+      color: black;
+    }
+  }
+}
