@@ -96,77 +96,83 @@ const signedMessages = [
 
 class Quoteth extends React.Component {
 
-  constructor() {
-    super();
-
-    /*
-    signedMessages.forEach((signedMessage, i) => {
-      signedMessage.possibleSigners.forEach(function(account) {
-        if(verifySignature(account.address, signedMessage.message, signedMessage.signature)) {
-          console.log(i + ". " + signedMessage.message);
-          console.log("- " + account.owner);
-          console.log();
-        }
-      });
-    });
-    */
-  }
-
-  checkSignature = (signedMessage, possibleSigner) => {
-    const x = verifySignature(possibleSigner.address, signedMessage.message, signedMessage.signature);
+  makeGuess = (signedMessage, possibleSigner) => {
     signedMessage.guess = {
       signer: possibleSigner,
-      valid: x,
     };
-    console.log( signedMessage);
     this.forceUpdate();
   }
 
   render() {
     return (
       <div className="Quoteth">
-        { signedMessages.map((signedMessage, i) => {
-          const p0 = signedMessage.possibleSigners[0];
-          const p1 = signedMessage.possibleSigners[1];
+        <header>
+          <h1>Q U O T E T H</h1>
+          <h2>Ethereum signatures in action</h2>
+          <p>By <a href="https://michaelvandaniker.com">Michael VanDaniker</a></p>
+        </header>
+        <div className="content">
+          <div className="intro box">
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+          </div>
+          <div className="messages">
+            { signedMessages.map((signedMessage, i) => {
+              const p0 = signedMessage.possibleSigners[0];
+              const p1 = signedMessage.possibleSigners[1];
 
-          let className0 = "name ";
-          let className1 = "name ";
-          console.log(signedMessage.guess);
-          if(signedMessage.guess) {
-            if(signedMessage.guess.valid) {
-              console.log("here")
-              console.log(signedMessage.guess.signer, p1);
-              if(signedMessage.guess.signer === p0) {
-                className0 += "correct";
-                className1 += "disabled";
+              let messageClassName = "message box";
+              if(signedMessage.guess) {
+                messageClassName += " guessed";
+                if(verifySignature(signedMessage.guess.signer.address, signedMessage.message, signedMessage.signature)) {
+                  messageClassName += " correctly";
+                } else {
+                  messageClassName += " incorrectly";
+                }
               }
-              if(signedMessage.guess.signer === p1) {
-                console.log("123")
-                className0 += "disabled";
-                className1 += "correct";
-              }
-            } else {
-              if(signedMessage.guess.signer === p0) {
-                className0 += "incorrect";
-                className1 += "disabled";
-              }
-              if(signedMessage.guess.signer === p1) {
-                className0 += "disabled";
-                className1 += "incorrect";
-              }
-            }
-          } 
 
-          return (
-            <div className="message" key={i}>
-              <div className="messaage-body">{signedMessage.message}</div>
-              <div className="possible-signers">
-                <div className={className0} onClick={ !signedMessage.guess && (() => this.checkSignature(signedMessage, p0))}>{p0.owner}</div>
-                <div className={className1} onClick={ !signedMessage.guess && (() => this.checkSignature(signedMessage, p1))}>{p1.owner}</div>
-              </div>
-            </div>
-          );
-        })}
+              let className0 = "name";
+              if(signedMessage.guess && signedMessage.guess.signer === p0) {
+                className0 += " guess";
+              }
+
+              let className1 = "name";
+              if(signedMessage.guess && signedMessage.guess.signer === p1) {
+                className1 += " guess";
+              }
+
+              return (
+                <div className={messageClassName} key={i}>
+                  <div className="label">Message:</div>
+                  <div className="message-body">
+                    {signedMessage.message}
+                  </div>
+                  
+                  <div className="label">Signature:</div>
+                  <div className="message-signature includes-hex">
+                    {signedMessage.signature}
+                  </div>
+                  
+                  <div className="possible-signers">
+                    <div>Was the message signed by</div>
+                    <div className={className0}>
+                      <button onClick={ signedMessage.guess ? undefined : (() => this.makeGuess(signedMessage, p0))}>
+                        {p0.owner}
+                      </button>
+                      <div className="includes-hex">with address {p0.address}</div>
+                    </div>
+                    <div className="or-by">or by</div>
+                    <div className={className1}>
+                      <button onClick={ signedMessage.guess ? undefined : (() => this.makeGuess(signedMessage, p1))}>
+                        {p1.owner}
+                      </button>
+                      <div className="includes-hex">with address {p1.address}?</div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+        </div>
       </div>
     );
   }

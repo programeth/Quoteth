@@ -1,52 +1,158 @@
+$theme-color: rgb(36, 125, 186);
+$border-color: $theme-color;
+$form-background-color: white;
+$form-text-color: black;
+$shadow-color: rgba(0,0,0,.5);
+
+html {
+  body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+  }
+  a {
+    color: $theme-color;
+  }
+  textarea, button, input, pre {
+    font-family: 'Roboto', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-size: 1em;
+    box-sizing: border-box; 
+  }
+  input, textarea {
+    padding: 5px;
+  }
+  textarea {
+    resize: vertical;
+    min-height: 2em;
+  }
+  pre {
+    white-space: pre-wrap;
+    margin: 0px;
+  }
+}
+
 .Quoteth {
   max-width: 750px;
   margin: 0px auto;
 
-  .message {
-    font-family: 'Montserrat', sans-serif;
-    //text-align: center;
+  header {
+    color: white;
+    text-align: center;
+    margin-bottom: 2em;
+    padding-left: 20px;
+    padding-right: 20px;
+    padding-top: 20px;
+    
+    h1 {
+      font-family: 'Montserrat', sans-serif;
+      font-size: 3em;
+      color: $form-background-color;
+      text-shadow: 3px 3px $shadow-color;
+    }
+    h2 {
+      font-size: 1.25em;
+      text-shadow: 3px 3px $shadow-color;
+    }
+    p {
+      text-shadow: 0 0 3px $shadow-color;
+    }
+    a {
+      color: white;
+    }
+  }
+
+  button {
+    cursor: pointer;
+    border: none;
+    border-radius: 0;
+    background: $theme-color;
+    color: white;
+    padding: 10px;
+    outline: none;
+    user-select: none;
+  }
+
+  .label {
+    font-weight: bold;
+  }
+
+  .includes-hex {
+    word-break: break-all;
+  }
+
+  .content {
+    padding: 20px;
+    > :not(:last-child) {
+      margin-bottom: 10px;
+    }
+  }
+
+  .box {
     background: white;
     border: 1px solid black;
     padding: 10px;
+    box-shadow: 5px 5px $shadow-color;
   }
-  .message:not(:last-child) {
-    //border-bottom: 1px solid black;
-    margin-bottom: 10px;
-  }
-  .messaage-body {
-    background: white;
-    margin-bottom: 10px;
-  }
-  .possible-signers {
-    background: white;
-    //margin: 10px;
-  }
-  .name {
-    display: inline-block;
-    font-family: 'Roboto', sans-serif;
-    border: 1px solid black;
-    cursor: pointer;
-    //padding-left: 10px;
-    //padding-right: 10px;
-    padding: 5px 10px;
-    background: blue;
-    color:white;
-    
+
+  .message {
     &:not(:last-child) {
-      margin-right: 5px;
+      margin-bottom: 10px;
     }
 
-    &.correct {
-      background: green;
+    .message-body {
+      background: white;
+      margin-bottom: 10px;
     }
-    &.incorrect {
-      background: red;
+
+    .message-signature {
+      margin-bottom: 20px;
     }
-    &.disabled {
-      background: none;
-      border: none;
-      cursor: default;
-      color: black;
+
+    .possible-signers {
+      text-align: center;
+      > *:not(:last-child) {
+        margin-bottom: 15px;
+      }
+    }
+
+    .name {
+      button {
+        margin-bottom: 10px;
+      }
+    }
+
+    &.guessed {
+      .or-by {
+        opacity: .5;
+      }
+      &.correctly {
+        .name.guess button {
+          background: green;
+        }
+        .name:not(.guess) {
+          opacity: .5;
+        }
+      }
+      &.incorrectly {
+        .name.guess {
+          :not(button) {
+            opacity: .5;
+          }
+          button {
+            background: red;
+          }
+        }
+        
+      }
+      .name:not(.guess) button {
+        background: none;
+        color: black;
+      }
+      button {
+        cursor: default;
+      }
     }
   }
 }
