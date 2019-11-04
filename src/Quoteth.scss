@@ -31,10 +31,20 @@ html {
     white-space: pre-wrap;
     margin: 0px;
   }
+  button {
+    cursor: pointer;
+    border: none;
+    border-radius: 0;
+    background: $theme-color;
+    color: white;
+    padding: 10px;
+    outline: none;
+    user-select: none;
+  }
 }
 
 .Quoteth {
-  max-width: 750px;
+  //max-width: 750px;
   margin: 0px auto;
 
   header {
@@ -63,17 +73,6 @@ html {
     }
   }
 
-  button {
-    cursor: pointer;
-    border: none;
-    border-radius: 0;
-    background: $theme-color;
-    color: white;
-    padding: 10px;
-    outline: none;
-    user-select: none;
-  }
-
   .label {
     font-weight: bold;
   }
@@ -96,28 +95,73 @@ html {
     box-shadow: 5px 5px $shadow-color;
   }
 
+  .messages {
+    position: relative;
+  }
+
   .message {
+    //position: absolute;
+    
     &:not(:last-child) {
       margin-bottom: 10px;
     }
 
-    .message-body {
-      background: white;
-      margin-bottom: 10px;
+    &.visible {
+      animation: show 0.5s linear;
+      opacity: 1;
+      z-index: 0;
     }
 
-    .message-signature {
-      margin-bottom: 20px;
+    &.hidden {
+      animation: hide 0.5s linear;
+      opacity: 0;
+      z-index: -1;
+    }
+
+    &.preload {
+      animation-duration: 0s !important;
+    }
+
+    .message-body {
+      font-weight: bold;
+      margin-bottom: 10px;
+      font-family: 'Montserrat', sans-serif;
     }
 
     .possible-signers {
-      text-align: center;
-      > *:not(:last-child) {
-        margin-bottom: 15px;
-      }
-    }
+      display: flex;
 
-    .name {
+      .name {
+        height: 100%;
+        text-align: center;
+        flex-grow: 1;
+
+        &:not(:last-child) {
+          margin-right: 5px;
+        }
+      }
+
+      .portrait-container {
+        margin-bottom: 15px;  
+        overflow: hidden;
+        
+        .portrait {
+          background-size: cover;
+          background-repeat: no-repeat;
+          background-position: center;
+          background-size: 200px 300px;
+          width: 200px;
+          height: 300px;
+          margin: 0px auto; 
+          transition: transform .2s;
+          cursor: pointer;
+
+          &:hover {
+            transform: scale(1.2);
+          }
+        }
+      }
+      
       button {
         margin-bottom: 10px;
       }
@@ -144,15 +188,83 @@ html {
             background: red;
           }
         }
-        
       }
-      .name:not(.guess) button {
-        background: none;
-        color: black;
-      }
-      button {
-        cursor: default;
+      .possible-signers {
+        .name:not(.guess) button {
+          background: none;
+          color: black;
+        }
+        .portrait-container {
+          .portrait {
+            cursor: default;
+            transition: none;
+
+            &:hover {
+              transform: scale(1);
+            }
+          }
+        }
+        button {
+          cursor: default;
+        }
       }
     }
+
+    
+    > *:not(:last-child) {
+      margin-bottom: 15px;
+    }
+  }
+
+  .ProgressBar {
+    font-size: 90%;
+
+    .progress-bar-background {
+      width: 100%;
+      height: 8px;
+      background: gray;
+      margin-bottom: 2px;
+  
+      .progress-bar-fill {
+        height: 100%;
+        background: green;
+      }
+    }
+  }
+}
+
+@keyframes show {
+  0% {
+    display: none;
+    z-index: 0;
+    opacity: 0;
+  }
+  1% {
+    display: block;
+    z-index: 1;
+    opacity: 0;
+    //transform: scale(0);
+  }
+  100% {
+    opacity: 1;
+    //`transform: scale(1);
+  }
+}
+
+@keyframes hide {
+  0% {
+    display: block;
+    opacity: 1;
+    z-index: -1;
+  }
+  1% {
+    display: none;
+    opacity: 1;
+    z-index: 0;
+    //transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    //transform: scale(0);
   }
 }
