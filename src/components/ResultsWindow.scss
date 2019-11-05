@@ -1,0 +1,44 @@
+@import "../colors.scss";
+
+.ResultsWindow {
+
+  &.modal-background {
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: rgba(36, 125, 186, .75);
+    z-index: 100;
+    overflow: auto;
+    padding: 40px 60px;
+  }
+
+  .window {
+    background: $form-background-color;
+    border: 1px solid $theme-color;
+    box-shadow: 5px 5px $shadow-color;
+    max-width: 600px;
+    position: relative;
+    margin: 0px auto;
+    animation: appear 0.5s;
+
+    .window-header {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      .close-button {
+        cursor: pointer;
+        user-select: none;
+        font-weight: bold;
+        padding: 10px;
+        display: inline-block;
+      }
+    }
+
+    .window-content {
+      padding: 30px;
+    }
+  }
+}
