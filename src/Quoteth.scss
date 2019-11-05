@@ -1,4 +1,4 @@
-@import "colors.scss";
+@import "assets/colors.scss";
 
 @media (max-width: 480px) {
   html {
@@ -23,6 +23,17 @@
 @media (min-width: 1200px) {
   html {
     font-size: 16px;
+  }
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    top: 10px;
+  }
+  to {
+    opacity: 1;
+    top: 0px;
   }
 }
 
@@ -124,8 +135,9 @@ html {
     word-break: break-all;
   }
 
-  .content {
+  .container {
     padding: 20px;
+    margin-bottom: 190px;
     color: $form-text-color;
 
     > :not(:last-child) {
@@ -169,16 +181,15 @@ html {
       display: flex;
       flex-wrap: wrap;
 
-      .name {
+      .possible-signer {
         height: 100%;
         text-align: center;
         flex-grow: 1;
-        padding: 15px;
+        padding-bottom: 15px;
       }
 
       .portrait-container {
         margin-bottom: 15px;
-        overflow: hidden;
         
         .frame {
           background-color:#ddc;
@@ -224,9 +235,9 @@ html {
             border-left-color:#eed;
             border-right-color:#eed;
             border-top-color:#ccb;
-            background-size: cover;
-            width: 200px;
-            height: 300px;
+            width: 100%;
+            max-width: 200px;
+            max-height: 300px;
           }
         }
       }
@@ -241,12 +252,13 @@ html {
         cursor: default;
       }
       &.correctly {
-        .name.guess {
+        .possible-signer.guess {
           button {
             background: green;
+            cursor: default;
           }
         }
-        .name:not(.guess) {
+        .possible-signer:not(.guess) {
           .portrait {
             opacity: .5;
           }
@@ -254,6 +266,7 @@ html {
             background: none;
             color: $form-text-color;
             opacity: .5;
+            cursor: default;
           }
           .address {
             opacity: .5;
@@ -261,21 +274,23 @@ html {
         }
       }
       &.incorrectly {
-        .name.guess {
+        .possible-signer.guess {
           .portrait {
             opacity: .5;
           }
           button {
             background: red;
+            cursor: default;
           }
           .address {
             opacity: .5;
           }
         }
-        .name:not(.guess) {
+        .possible-signer:not(.guess) {
           button {
             background: none;
             color: $form-text-color;
+            cursor: default;
           }
         }
       }
@@ -287,38 +302,24 @@ html {
   }
 }
 
-@keyframes show {
-  0% {
-    display: none;
-    z-index: 0;
-    opacity: 0;
-  }
-  1% {
-    display: block;
-    z-index: 1;
-    opacity: 0;
-    //transform: scale(0);
-  }
-  100% {
-    opacity: 1;
-    //`transform: scale(1);
-  }
-}
+.intro {
+  .accounts {
+    display: table;
+    margin: 0 auto;
+    max-width: 600px;
 
-@keyframes hide {
-  0% {
-    display: block;
-    opacity: 1;
-    z-index: -1;
-  }
-  1% {
-    display: none;
-    opacity: 1;
-    z-index: 0;
-    //transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    //transform: scale(0);
+    .entry {
+      display: table-row;
+
+      .owner {
+        display: table-cell;
+        text-align: right;
+        padding-right: 10px;
+      }
+
+      .address {
+        display: table-cell;
+      }
+    }
   }
 }

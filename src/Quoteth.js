@@ -1,10 +1,12 @@
 import React from "react";
-import verifySignature from "utils";
-import ResultsWindow from "components/ResultsWindow.js";
+import verifySignature from "utils/verifySignature";
+import ResultsWindow from "components/ResultsWindow";
 import ACCOUNTS from "constants/Accounts";
 import QUOTES from "constants/Quotes";
 
 import "./Quoteth.scss";
+
+const AVOW_URL = "https://michaelvandaniker.com/sylph/avow";
 
 function Intro() {
   return (
@@ -18,36 +20,24 @@ function Intro() {
       <p>
         Here are ten Ethereum addresses assigned to famous quotable individuals.
       </p>
-      <div style={{
-        display: "table",
-        margin: "0 auto",
-        width: "600px"
-      }}>
+      <div className="accounts">
         { ACCOUNTS.map((account, i) => {
           return (
-            <div key={i}
-              style={{
-                display: 'table-row',
-              }}>
-              <div style={{
-                display: 'table-cell',
-                textAlign: 'right',
-                paddingRight: '10px'
-              }}>{account.owner}</div>
-              <div className="hex" style={{
-                display: 'table-cell',
-              }}>{account.address}</div>
+            <div className="entry" key={i}>
+              <div className="owner">{account.owner}</div>
+              <div className="address includes-hex hex">{account.address}</div>
             </div>
           );
         }) }
       </div>
       <p>
-        Each address was used to sign messages containing some of their most well-known quotes. Can you correctly identify which quote
-        came from which person?
+        Each address was used to sign messages containing some of their most well-known quotes. Can you correctly identify which quotes
+        came from which people?
       </p>
       <p>
         Since the addresses, messages, and signatures are all available, you don't even have to guess! You can easily score 100% on this quiz
-        by using an Ethereum signature verification tool (like Avow) to see which address + signature pairs match with the quotes.
+        by using an Ethereum signature verification tool (like <a href={AVOW_URL + "/verify"} target="_blank" rel="noopener noreferrer">Avow</a>!)
+        to see which address + signature pairs match with the quotes.
       </p>
     </div>
   );
@@ -71,26 +61,27 @@ function Message({signedMessage, onGuess}) {
         
       <div className="possible-signers">
         { signedMessage.possibleSigners.map((account, i) => {
-          let className = "name";
+          let className = "possible-signer";
           if(signedMessage.guess && signedMessage.guess.signer === account) {
             className += " guess";
           }
 
           const clickHandler = signedMessage.guess ? undefined : (() => onGuess(signedMessage, account));
 
+          const avowLink = AVOW_URL + `/verify?address=${account.address}&message=${signedMessage.message}&signature=${signedMessage.signature}`
+
           return (
             <div className={className} key={i}>
               <div className="portrait-container">
-                <div className="frame"
-                  onClick={clickHandler}>
-                  <div className="portrait"
-                    style={{
-                      "backgroundImage": `url(${account.image})`,
-                    }}></div>
+                <div className="frame" onClick={clickHandler}>
+                  <img className="portrait" src={account.image} alt="" />
                 </div>
               </div>
               <button onClick={clickHandler}>{account.owner}</button>
-              <div className="address">with address<br/><span className="hex">{account.address}</span></div>
+              <div className="address">with address<br/><span className="hex includes-hex">{account.address}</span></div>
+              <div className="avow-link">
+                <a href={avowLink} target="_blank" rel="noopener noreferrer">Verify in Avow</a>
+              </div>
             </div>
           );
         }) }
@@ -172,7 +163,7 @@ class Quoteth extends React.Component {
           <h2>Ethereum signatures in action</h2>
           <p>By <a href="https://michaelvandaniker.com">Michael VanDaniker</a></p>
         </header>
-        <div className="content">
+        <div className="container">
           <div className="box">
             <Intro />
             <hr />
