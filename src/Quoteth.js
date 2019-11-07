@@ -129,7 +129,7 @@ class Quoteth extends React.Component {
       numAnswered: numAnswered + 1,
     }, () => {
       if(this.state.numAnswered === this.state.signedMessages.length) {
-        setTimeout(this.showResults, 0); // Let the user see the result of their last guess before showing the results
+        setTimeout(this.showResults, 1000); // Let the user see the result of their last guess before showing the results
       }
     });
   };
@@ -172,10 +172,13 @@ class Quoteth extends React.Component {
                 <div key={i}>
                   <Message signedMessage={signedMessage}
                     onGuess={this.makeGuess} />
-                  { i !== signedMessages.length - 1 && <hr /> }
+                  <hr />
                 </div>
               );
             }) }
+            <footer>
+              Fun fact: Quoteth doesn't know which account signed each message. All it knows is <a href="https://github.com/Sylph-Dapps/Quoteth/blob/master/src/constants/Quotes.js" target="_blank" rel="noopener noreferrer">which two possible signers to display</a>. When you submit an answer, Quoteth does <a href="https://github.com/Sylph-Dapps/Quoteth/blob/master/src/utils/verifySignature.js" target="_blank" rel="noopener noreferrer">on-the-fly signature verification</a> using the account you selected.
+            </footer>
           </div>
         </div>
         { this.state.resultsVisible &&

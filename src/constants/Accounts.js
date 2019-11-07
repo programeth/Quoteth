@@ -1,13 +1,13 @@
-import AngelouPortrait from 'assets/Angelou.png';
-import BowiePortrait from 'assets/Bowie.png';
-import DickensonPortrait from 'assets/Dickenson.png';
-import FitzgeraldPortrait from 'assets/Fitzgerald.png';
-import HeadPortrait from 'assets/Head.png';
-import HemmingwayPortrait from 'assets/Hemmingway.png';
-import JobsPortrait from 'assets/Jobs.png';
-import KingPortrait from 'assets/King.png';
-import LeePortrait from 'assets/Lee.png';
-import LincolnPortrait from 'assets/Lincoln.png';
+import AngelouPortrait from 'assets/portraits/Angelou.png';
+import BowiePortrait from 'assets/portraits/Bowie.png';
+import DickensonPortrait from 'assets/portraits/Dickenson.png';
+import FitzgeraldPortrait from 'assets/portraits/Fitzgerald.png';
+import HeadPortrait from 'assets/portraits/Head.png';
+import HemmingwayPortrait from 'assets/portraits/Hemmingway.png';
+import JobsPortrait from 'assets/portraits/Jobs.png';
+import KingPortrait from 'assets/portraits/King.png';
+import LeePortrait from 'assets/portraits/Lee.png';
+import LincolnPortrait from 'assets/portraits/Lincoln.png';
 
 export const Hemmingway = {
   owner: "Ernest Hemmingway",

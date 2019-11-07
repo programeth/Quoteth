@@ -1,4 +1,8 @@
 import React from "react";
+import PERFECT from 'assets/resultGifs/perfect.gif';
+import GOOD from 'assets/resultGifs/good.gif';
+import BAD from 'assets/resultGifs/bad.gif';
+import REALLY_BAD from 'assets/resultGifs/really-bad.gif';
 
 import "./ResultsWindow.scss";
 
@@ -15,18 +19,39 @@ class ResultsWindow extends React.Component {
     const {
       numCorrect,
       total,
+      onClose,
     } = this.props;
 
     let commentary = "";
     const percentage = numCorrect / total;
-    if(percentage > 0.85) {
-      commentary = "You really know your famous quotes!";
-    } else if(percentage > 0.70) {
-      commentary = "That's pretty good!";
-    } else if(percentage > 0.55) {
-      commentary = "At least it's over.";
+    if(percentage > 0.9) {
+      commentary = (
+        <div>
+          <p>You really know your famous quotes!</p>
+          <p><img src={PERFECT} alt=""/></p>
+        </div>
+      );
+    } else if(percentage > 0.8) {
+      commentary = (
+        <div>
+          <p>That's pretty good!</p>
+          <p><img src={GOOD} alt=""/></p>
+        </div> 
+      );
+    } else if(percentage > 0.6) {
+      commentary = (
+        <div>
+          <p>Hey, at least it's over, right?</p>
+          <p><img src={BAD} alt=""/></p>
+        </div>
+      );
     } else {
-      commentary = "That was rough, huh?";
+      commentary = (
+        <div>
+          <p>That was rough, huh?</p>
+          <p><img src={REALLY_BAD} alt=""/></p>
+        </div>
+      );
     }
 
     return (
@@ -37,8 +62,11 @@ class ResultsWindow extends React.Component {
             <div className="close-button">X</div>
           </div>
           <div className="window-content">
-            <p>You got {numCorrect} out of {total}!</p>
-            <p>{commentary}</p>
+            <h2>Results</h2>
+            <p>You got {numCorrect} out of {total} right.</p>
+            {commentary}
+            
+            <button onClick={onClose}>Close</button>
           </div>
         </div>
       </div>

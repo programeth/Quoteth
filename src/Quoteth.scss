@@ -74,6 +74,10 @@ html {
     outline: none;
     user-select: none;
   }
+
+  footer {
+    font-size: 0.9em;
+  }
 }
 
 .Quoteth {
@@ -102,6 +106,10 @@ html {
     }
     a {
       color: white;
+    }
+    footer {
+      padding-top: 20px;
+      font-size: .8em;
     }
   }
 
@@ -139,10 +147,13 @@ html {
     padding: 20px;
     margin-bottom: 190px;
     color: $form-text-color;
+  }
 
-    > :not(:last-child) {
-      margin-bottom: 10px;
-    }
+  .box {
+    background: $form-background-color;
+    border: 1px solid black;
+    padding: 10px;
+    box-shadow: 5px 5px $shadow-color;
 
     h2 {
       margin-block-start: 0px;
@@ -153,18 +164,31 @@ html {
     }
   }
 
-  .box {
-    background: $form-background-color;
-    border: 1px solid black;
-    padding: 10px;
-    box-shadow: 5px 5px $shadow-color;
+  .intro {
+    .accounts {
+      display: table;
+      margin: 0 auto;
+      max-width: 600px;
+  
+      .entry {
+        display: table-row;
+  
+        .owner {
+          display: table-cell;
+          text-align: right;
+          padding-right: 10px;
+        }
+  
+        .address {
+          display: table-cell;
+        }
+      }
+    }
   }
 
   .message {
-    &:not(:last-child) {
-      margin-bottom: 10px;
-    }
-
+    margin-bottom: 10px;
+    
     .message-body {
       font-weight: bold;
       margin-bottom: 10px;
@@ -298,28 +322,6 @@ html {
 
     > *:not(:last-child) {
       margin-bottom: 15px;
-    }
-  }
-}
-
-.intro {
-  .accounts {
-    display: table;
-    margin: 0 auto;
-    max-width: 600px;
-
-    .entry {
-      display: table-row;
-
-      .owner {
-        display: table-cell;
-        text-align: right;
-        padding-right: 10px;
-      }
-
-      .address {
-        display: table-cell;
-      }
     }
   }
 }
