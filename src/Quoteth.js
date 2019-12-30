@@ -6,17 +6,23 @@ import QUOTES from "constants/Quotes";
 
 import "./Quoteth.scss";
 
-const AVOW_URL = "https://michaelvandaniker.com/sylph/avow";
+const AVOW_URL = "https://sylphdapps.com/avow";
 
 function Intro() {
   return (
-    <div className="intro">
-      <h2>Famous quotes, cryptograhpically signed</h2>
+    <div className="intro box">
+      <h2>What are message signatures?</h2>
       <p>
-        Message signatures on Ethereum can be used to prove you made a particular statement.
-        How? The trio of an Ethereum address, message, and signature can only be <i>generated</i> by the owner of that Ethereum
-        address, but their authenticiy can be <i>verified</i> by anyone.
+        Signing a message is the act of combining your Ethereum account information with a free-text message to produce a unique
+        string of 132 characters known as a signature.
       </p>
+      <p>
+        Message signatures on Ethereum can be used to prove you authorized a particular action or made a particular statement.
+        How? The trio of an Ethereum address, message, and signature can only be <i>generated</i> by the owner of that Ethereum
+        address, but their authenticiy can be <i>verified</i> by anyone. So if you sign a message and share the signature and
+        your address, anyone can prove that the message was signed by your account.
+      </p>
+      <h2>Famous quotes, cryptograhpically signed</h2>
       <p>
         Here are ten Ethereum addresses assigned to famous quotable individuals.
       </p>
@@ -44,7 +50,7 @@ function Intro() {
 }
 
 function Message({signedMessage, onGuess}) {
-  let messageClassName = "message";
+  let messageClassName = "message box";
   if(signedMessage.guess) {
     messageClassName += " guessed";
     if(verifySignature(signedMessage.guess.signer.address, signedMessage.message, signedMessage.signature)) {
@@ -161,10 +167,10 @@ class Quoteth extends React.Component {
         <header>
           <h1>Q U O T E T H</h1>
           <h2>Ethereum signatures in action</h2>
-          <p>By <a href="https://michaelvandaniker.com">Michael VanDaniker</a></p>
+          <p>By <a href="https://sylphdapps.com">Sylph Dapps</a></p>
         </header>
         <div className="container">
-          <div className="box">
+          <div>
             <Intro />
             <hr />
             { signedMessages.map((signedMessage, i) => {
